@@ -1,11 +1,15 @@
 class Application
   
   def call(env)
-    return [ 200, {'Content-Type' => 'text/html'}, has_key? ]
-  end 
-
-  def has_key?
-    "Good Morning" "Good Afternoon"
+    resp = Rack::Response.new 
+    now = Time.now
+    if now.hour >= 12
+      resp.write "Good Afternoon!"
+    else
+      resp.write "Good Morning!"
+    end
+  
+    resp.finish
   end
   
 
